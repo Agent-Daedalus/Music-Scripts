@@ -37,8 +37,8 @@ cmus-remote -p
 
 # Check if the file was successfully added
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to add '$file' to cmus."
-    exit 1
+  echo "Error: Failed to add '$file' to cmus."
+  exit 1
 fi
 
 echo "File '$file' added to cmus queue successfully."

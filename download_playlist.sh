@@ -7,8 +7,7 @@ extension="m4a"
 
 # Parse flags
 while [[ "$#" -gt 0 ]]; do
-  case "$1" in
-    --include-index)
+  case "$1" in --include-index)
       output_format="%(playlist_index)02d - %(title)s.%(ext)s"
       shift
       ;;
