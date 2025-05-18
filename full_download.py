@@ -20,7 +20,6 @@ def main():
     get_album_info_script = "/home/daedalus/Music/get_album_info.py"
     fix_metadata_script = "/home/daedalus/Music/fix_metadata.py"
 
-
     # Run get_album_info.py synchronously
     subprocess.run(["python3", get_album_info_script, artist, album], check=True)
 

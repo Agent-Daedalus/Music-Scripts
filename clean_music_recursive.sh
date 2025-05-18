@@ -8,46 +8,15 @@ clean_name() {
   name=$(echo "$name" | sed 's/ *\[[^]]*\]//g')
   name=$(echo "$name" | sed 's/^ *//')
   # Remove specific phrases
-  name=$(echo "$name" | sed 's/ *(Explicit)//g' | sed 's/ *(Lyrics)//g' | sed 's/ *Eminem - //g')
-  name=$(echo "$name" | sed 's/ (Audio)//g')
-  name=$(echo "$name" | sed 's/ (Lyric Video)//g')
+  name=$(echo "$name" | sed 's/ *(Explicit)//g' | sed 's/ *(Lyrics)//g')
+  name=$(echo "$name" | sed 's/ *(Audio)//g')
+  name=$(echo "$name" | sed 's/ *(Lyric Video)//g')
   name=$(echo "$name" | sed 's/ *(Official[^)]*)//g')
-  name=$(echo "$name" | sed 's/ (Visualizer)//g')
-  # name=$(echo "$name" | sed 's/[0-9]\{2\}\.//g')
+  name=$(echo "$name" | sed 's/ *(Visualizer)//g')
+  name=$(echo "$name" | sed 's/[0-9]\{2\}\.//g')
   name=$(echo "$name" | sed 's/[0-9]\{2\}\ - //g')
   name=$(echo "$name" | sed 's/[0-9]\{2\}\ -//g')
   name=$(echo "$name" | sed 's/[0-9]\{1\}\.//g')
-
-   # name=$(echo "$name" | sed 's/2Pac - //g')
-  # name=$(echo "$name" | sed 's/2Pac - //g')
-  # name=$(echo "$name" | sed 's/ (Original Soundtrack Vol. I)//g')
-  # name=$(echo "$name" | sed 's/Minecraft Volume Beta - [0-9]\+ - //g')
-
-  # If the second argument is provided, apply it
-  if [ -n "$arg" ]; then
-    name=$(echo "$name" | sed "$arg" 2>/dev/null)
-    if [ $? -ne 0 ]; then
-      echo "Error: Invalid sed argument: $arg"
-      return 1
-    fi
-  fi
-  echo "$name"
-}
-
-clean_aot() {
-  # Remove text between brackets and the preceding space
-  local name="$1"
-  local arg="$2"
-  # Remove specific phrases
-  name=$(echo "$name" | sed 's/ *(Explicit)//g' | sed 's/ *(Lyrics)//g' | sed 's/ *Eminem - //g')
-  name=$(echo "$name" | sed 's/[0-9]\{2\}\.//g')
-  name=$(echo "$name" | sed 's/ * ｜ High Quality ｜ Hiroyuki Sawano//g')
-  name=$(echo "$name" | sed 's/ *Attack on Titan： Original Soundtrack I - //g')
-  name=$(echo "$name" | sed 's/ *Attack On Titan Season 2 OST ~ \[\(.*\)\]/\1/g')
-  name=$(echo "$name" | sed 's/Attack on Titan - //g')
-  name=$(echo "$name" | sed 's/Attack on Titan OST - //g')
-  name=$(echo "$name" | sed 's/Attack on Titan： //g')
-  name=$(echo "$name" | sed 's/Attack on Titan Season * OST - //g')
 
   # If the second argument is provided, apply it
   if [ -n "$arg" ]; then

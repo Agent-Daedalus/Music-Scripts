@@ -1,30 +1,42 @@
 #!/bin/bash
 
-# Define default values
-include_metadata=false
-include_thumbnail=false
-include_index=false
-
-# Define the music directory
-music_dir="$HOME/Music/$artist/$album"
+# Define defaults 
+output_format="%(title)s.%(ext)s"
+yt_dlp_options=""
+extension="m4a"
 
 # Parse flags
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
     --include-index)
-      include_index=true
-      shift # Move to the next argument
+      output_format="%(playlist_index)02d - %(title)s.%(ext)s"
+      shift
       ;;
     --include-metadata)
-      include_metadata=true
+      yt_dlp_options+=("--add-metadata" "--embed-metadata")
       shift
       ;;
     --include-thumbnail)
-      include_thumbnail=true
+      yt_dlp_options+=("--embed-thumbnail")
+      shift
+      ;;
+    --output-dir)
+      download_dir="$2"
+      shift
+      shift
+      ;;
+    --format)
+      extension="$2"
+      shift
       shift
       ;;
     --help)
-      echo "Usage: $0 [--include-index] [--include-metadata] [--include-thumbnail] <artist> <album> <link>"
+      echo "Usage: $0 [--include-index] [--include-metadata] [--include-thumbnail] [--output-dir <folder>] <artist> <album> <link>"
+      echo "  --output-dir <folder>    : Set the base output folder for downloaded music (default: $HOME/Music/[artist]/[album])"
+      echo "  --include-index          : Include track numbers in filenames"
+      echo "  --include-metadata       : Embed metadata into audio files"
+      echo "  --include-thumbnail      : Embed thumbnails into audio files"
+      echo "  --format <extension>     : Specify the desired audio format for download (default: m4a)"
       exit 0
       ;;
     *)
@@ -44,33 +56,22 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-# Check if required arguments are set
+# check if required arguments are set
 if [ -z "$artist" ] || [ -z "$album" ] || [ -z "$link" ]; then
-  echo "Error: Artist, album, and playlist link are required."
+  echo "error: artist, album, and playlist link are required."
   exit 1
 fi
 
-# Set the yt-dlp output format based on the flag
-if [ "$include_index" = true ]; then
-  output_format="%(playlist_index)02d - %(title)s.%(ext)s"
-else
-  output_format="%(title)s.%(ext)s"
+if [ -z "$download_dir" ]; then
+  download_dir="$HOME/Music/$artist/$album"
 fi
 
-if [ "$include_metadata" = true ]; then
-  yt_dlp_options+=("--add-metadata" "--embed-metadata")
-fi
+# create the directory if it doesn't exist
+mkdir -p "$download_dir"
 
-if [ "$include_thumbnail" = true ]; then
-  yt_dlp_options+=("--embed-thumbnail")
-fi
+# run yt-dlp for the playlist with the chosen output format and options
+echo "downloading playlist: $link to directory: $download_dir"
+yt-dlp -x --audio-format "$extension" "$yt_dlp_options" -o "$download_dir/$output_format" "$link"
 
-# Create the directory if it doesn't exist
-mkdir -p "$music_dir/$artist/$album"
-
-# Run yt-dlp for the playlist with the chosen output format and options
-echo "Downloading playlist: $link to directory: $music_dir"
-yt-dlp -x --audio-format "m4a" -o "$music_dir/$artist/$album/$output_format" "$link"
-
-echo "Finished downloading: $link"
+echo "finished downloading: $link"
 
