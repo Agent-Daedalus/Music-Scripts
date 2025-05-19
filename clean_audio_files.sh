@@ -86,7 +86,7 @@ process_file() {
   else
     # If failed, restore the original file name
     mv "$temp_file" "$file"
-    echo "Copy failed: $file"
+    echo "Conversion failed: $file"
   fi
 }
 
