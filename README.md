@@ -28,7 +28,9 @@ sudo pacman -S python
 
 ```
 ## Before Using
-These scripts have been only tested on Arch Linux, _. 
+These scripts have been primarily tested on Arch Linux. While they may work on other Linux distributions or macOS, compatibility is not guaranteed, and you might need to adjust installation commands or script behavior.
+
+If you plan to use `get_album_info.py`, you will need to provide your own header, for example "MyAwesomeTagger/1.2.0 ( http://myawesometagger.example.com )" (see [Musicbrainz](https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting) for more info and examples),
 
 ## Script Summaries
 *  `append_music_doc.sh`: Appends links to a markdown document. 
@@ -39,8 +41,8 @@ These scripts have been only tested on Arch Linux, _.
 *  `cmus-quickplay.sh`: Starts and plays an audio file through cmus.
 *  `download_playlist.sh`: Downloads audio tracks from an online playlist using yt-dlp.
 *  `fix_metadata.py`: Sets advanced metadata and album art in audio files based on album info.
-*  `full_download_basic.py`: Runs `download_playlist.sh`, `clean_audio_files.sh` and `set_cover_images.sh` in sequence
-*  `full_download_advanced.py`: Runs `get_album_info.sh`, `download_playlist.sh` and `fix_metadata.sh` in sequence
+*  `full_download_basic.py`: Runs `download_playlist.sh`, `clean_audio_files.sh` and `set_cover_images.sh` in sequence.
+*  `full_download_advanced.py`: Runs `get_album_info.sh`, `download_playlist.sh` and `fix_metadata.sh` in sequence.
 *  `get_album_info.py`: Gets advanced metadata and album art using the [Musicbrainz API](https://musicbrainz.org/doc/MusicBrainz_API).
 *  `man_set_tracknum.sh`: Loops through all audio files and asks the user to manually provide the correct track number.
 *  `set_cover_images.sh`: Uses mp4art to embed cover art in audio files. 
@@ -48,13 +50,14 @@ These scripts have been only tested on Arch Linux, _.
 
 ## Usage Examples 
 
-### basic easy thing (`full_download_basic.py`) 
+### Basic Download and Clean (`full_download_basic.py`) 
 1. Use download_playlist.sh to download a youtube playlist using yt-dlp
 2. Use clean_audio_files.sh to clean the audio file's data and set metadata
 3. Download cover art and use set_cover_images.sh to embed it
 
-### thing r (`full_download_advanced.py`)
+### Advanced Download and Metadata (`full_download_advanced.py`)
 1. Use get_album_info.py to get the tracklist, advanced metadata, and cover art using the musicbrainz
 2. Use download_playlist.sh to download a youtube playlist using yt-dlp
 3. Use fix_metadata.py to embed the advanced metdata and cover art
-Note: advanced metadata includes all of the metadata the Musicbrainz API provides, including 
+
+Note: The "advanced metadata" obtained from the MusicBrainz API includes a wide range of information about the release, artists, tracks, and relationships.

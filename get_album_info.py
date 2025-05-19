@@ -8,7 +8,8 @@ BASE_URL = "https://musicbrainz.org/ws/2/release-group/"
 RELEASE_URL = "https://musicbrainz.org/ws/2/release/"
 MEDIA_URL = "https://musicbrainz.org/ws/2/media/"
 
-headers = { "User-Agent": "TestAlbumMetadata/1.0 (agentdumbledore@gmail.com)" }
+# Set your own header here:
+# headers = { "User-Agent": "MyAwesomeTagger/1.2.0 ( me@example.com )" }
 
 MUSIC_DIRECTORY = "/home/daedalus/Music"
 choose_release_group = True
