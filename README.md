@@ -15,22 +15,23 @@ This repository contains a collection of Bash and Python scripts designed to aut
   * **mp4art:** For embedding album art into MP4 audio files.
   * **atomicparsley:** For advanced manipulation of metadata in audio files.
   * **Python Libraries:** 
-    * testing
+    * prettytable: For displaying tabular data in the console.
+    * requests: For making HTTP requests to web services like MusicBrainz.
+    * mutagen: For reading and writing audio metadata in various formats (MP3, FLAC, M4A, etc.).
 
 **Arch Linux Download Command**: 
-```?
+```bash
 sudo pacman -S python yt-dlp ffmpeg ffprobe sed awk mp4ary atomicparsley
-
 ```
-**Arch Linux Download Command Python**: 
-```?
-sudo pacman -S python 
 
+**Download Command Pip**: 
+```bash
+pip install prettytable requests mutagen 
 ```
 ## Before Using
 These scripts have been primarily tested on Arch Linux. While they may work on other Linux distributions or macOS, compatibility is not guaranteed, and you might need to adjust installation commands or script behavior.
 
-If you plan to use `get_album_info.py`, you will need to provide your own header, for example "MyAwesomeTagger/1.2.0 ( http://myawesometagger.example.com )" (see [Musicbrainz](https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting) for more info and examples),
+To use `get_album_info.py`, you'll need to set a custom User-Agent header. MusicBrainz requires this to identify your application (see their Rate Limiting documentation for details and examples). A suggested format is "YourAppName/Version ( YourContactInfo )".
 
 ## Script Summaries
 *  `append_music_doc.sh`: Appends links to a markdown document. 
