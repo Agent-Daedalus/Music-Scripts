@@ -17,41 +17,44 @@ This repository contains a collection of Bash and Python scripts designed to aut
   * **Python Libraries:** 
     * testing
 
-## Dependencies 
+**Arch Linux Download Command**: 
+```?
+sudo pacman -S python yt-dlp ffmpeg ffprobe sed awk mp4ary atomicparsley
+
+```
+**Arch Linux Download Command Python**: 
+```?
+sudo pacman -S python 
+
+```
+## Before Using
+These scripts have been only tested on Arch Linux, _. 
+
+## Script Summaries
+*  `append_music_doc.sh`: Appends links to a markdown document. 
+*  `batch_download_playlists.sh`: Downloads multiple youtube playlists in batch.
+*  `clean_audio_files.sh`: Cleans and formats audio filenames and metadata.
+*  `clean_music_recursive.sh`: Recursively cleans audio files within a directory.
+*  `cmus-addqueue.sh`: Adds selected music files to the cmus queue.
+*  `cmus-quickplay.sh`: Starts and plays an audio file through cmus.
+*  `download_playlist.sh`: Downloads audio tracks from an online playlist using yt-dlp.
+*  `fix_metadata.py`: Sets advanced metadata and album art in audio files based on album info.
+*  `full_download_basic.py`: Runs `download_playlist.sh`, `clean_audio_files.sh` and `set_cover_images.sh` in sequence
+*  `full_download_advanced.py`: Runs `get_album_info.sh`, `download_playlist.sh` and `fix_metadata.sh` in sequence
+*  `get_album_info.py`: Gets advanced metadata and album art using the [Musicbrainz API](https://musicbrainz.org/doc/MusicBrainz_API).
+*  `man_set_tracknum.sh`: Loops through all audio files and asks the user to manually provide the correct track number.
+*  `set_cover_images.sh`: Uses mp4art to embed cover art in audio files. 
+*  `set_tracknum.sh`: Attempts to automatically set tracknumber based on a tracklist.
 
 ## Usage Examples 
 
-### basic easy thing 
-[1] Use download_playlist.sh to download a youtube playlist using yt-dlp
-[2] Use clean_audio_files.sh to clean the audio file's data and set metadata
-[3] Download cover art and use set_cover_images.sh to embed it
+### basic easy thing (`full_download_basic.py`) 
+1. Use download_playlist.sh to download a youtube playlist using yt-dlp
+2. Use clean_audio_files.sh to clean the audio file's data and set metadata
+3. Download cover art and use set_cover_images.sh to embed it
 
-### thing r 
-[1] Use get_album_info.py to get the tracklist, advanced metadata, and cover art using the musicbrainz
-[2] Use download_playlist.sh to download a youtube playlist using yt-dlp
-[3] Use fix_metadata.py to set the info using
-
-
-## Script Descriptions
-
-### `clean_audio_files.sh`
-
-This Bash script is designed to take existing audio files as input and perform several cleaning and formatting operations. Its primary functionalities include:
-
-* **Filename Cleaning:**
-    * Removes bracketed information (e.g., `[Official Video]`).
-    * Removes leading and trailing spaces.
-    * Removes specific common phrases like `(Explicit)`, `(Lyrics)`, `(Audio)`, `(Lyric Video)`, `(Official...)`, `(Visualizer)`.
-    * Removes leading track numbers in various formats (e.g., `01.`, `02 -`, `03 -`).
-    * Allows for custom `sed` commands to be applied for more specific cleaning.
-* **Metadata Embedding:**
-    * Attempts to extract track numbers from filenames and embed them as metadata.
-    * Embeds artist and album metadata provided via command-line flags.
-* **Error Handling:**
-    * Includes basic error checking for `sed` commands and `ffmpeg` conversions.
-    * Restores the original filename if conversion fails.
-
-**Usage:**
-```bash
-./clean_audio_files.sh [--artist <artist name>] [--album <album name>] [--remove-phrase <phrase>] [--format <extension>] <audio-files...>```
-
+### thing r (`full_download_advanced.py`)
+1. Use get_album_info.py to get the tracklist, advanced metadata, and cover art using the musicbrainz
+2. Use download_playlist.sh to download a youtube playlist using yt-dlp
+3. Use fix_metadata.py to embed the advanced metdata and cover art
+Note: advanced metadata includes all of the metadata the Musicbrainz API provides, including 
